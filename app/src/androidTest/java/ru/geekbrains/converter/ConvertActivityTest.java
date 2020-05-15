@@ -53,6 +53,22 @@ public class ConvertActivityTest {
     }
 
     @Test
+    public void ConvertActivity_toMpSButton_Test() {
+        // Type text and then press the button.
+        onView(withId(R.id.celsiusValue))
+                .perform(typeText(mStringToBetyped), closeSoftKeyboard());
+        onView(withId(R.id.toFahrenheitButton)).perform(click());
+
+        // Check that the text was changed.
+        onView(withId(R.id.celsiusValue))
+                .check(matches(withText(mStringToBetyped)));
+
+        onView(withId(R.id.fahrenheitValue))
+                .check(matches(withText("1.39"))); // формат вывода два знака после запятой
+
+    }
+
+    @Test
     public void AppContext_Test() throws Exception {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
